@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 # Thu 03 Mar 2022 09:40:27 AM EST pflint
-version="0.06"
+version="0.07"
 #
 # programs you need put here
 need="git libsecret-tools pv " #D add "banana" to ntest 
@@ -13,7 +13,7 @@ need="git libsecret-tools pv " #D add "banana" to ntest
 # git config --global --list
 # git status 		# important
 # cd repository
-# touch README.md
+# touch README.mdhttps://github.com/flintiii/bin
 # git init
 # git add README.md
 # git commit -m "first commit"
@@ -62,6 +62,20 @@ function dummy(){
 echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 uroot
 } # Test: gitbrain.sh dummy
+#
+#
+function gitaup(){
+#* function gitaup - makes uploads a .git file
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+uroot
+reponm="banana"; echo $reponm
+echo 'git init --bare https://github.com/flintiii/'$reponm'.git'
+echo "tada"
+#
+# git init --bare https://github.com/flintiii/$reponm.git
+# Initialized empty Git repository in /home/flint/gbot/https:/github.com/flintiii/growbot.git/
+} # Test: gitbrain.sh gitaup
+#
 #
 function gitset(){
 #* function gitset - Rename and fill stuff in between braces
@@ -276,7 +290,7 @@ echo "end of check"
 # Note the evaluator allows for many cases and error checking...
 #d ARGS=$#         # carries the number of args into the functions...
 #D echo $#"     "$1"    "$2"    "$3"    "$ARGS ;spause 
-if [ "$#" -eq "1" ] && [ "$1" = "PlainDrupal" ]; then ARGS="1"; fi
+if [ "$#" -eq "1" ] && [ "$1" = "gitaup"	  ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "Crunchy"     ]; then ARGS="*"; fi
 if [ "$#" -eq "2" ] && [ "$1" = "Replace"     ]; then ARGS="2"; fi
 if [ "$#" -eq "2" ] && [ "$1" = "These"       ]; then ARGS="2"; fi
@@ -305,7 +319,7 @@ case "$ARGS" in
     "2") var2=$2;  $1 ;;    # run the command with an argument
     "3") var3=$3; var2=$2;  $1 ;;       # run the command with two arguments
     "4") var4=$4; var3=$3; var2=$2;  $1 ;;          # run the command with three arguments
-    "5") prompt=$2; $1 ;;   # run the command with a different argument
+    "5") prompt=$2;https://github.com/flintiii/bin $1 ;;   # run the command with a different argument
     "6") time=$3; prompt=$2;  $1 ;;     # run the command with two different arguments
     "7") flint_short_vita_2017-07-01.odtdefvbl; $1 ;;           # run the command and default variables
     "8") var2=$2;  $1 ;;    # run the command and settle variables
@@ -314,4 +328,8 @@ case "$ARGS" in
       *) clear; cat $0 | grep '^## '| sed -e 's/##//'; exit 1;; # Anything else run help and exit...
 esac # End main loop. TEST: ?fill in test?
 #
+# echo " "; echo "On "$(date +%F\ %r) $0" version "$version" stops"
+#debug echo  "That's all folks!!"
+#
+#* restore environment cd "$S"
 

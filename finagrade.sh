@@ -1,5 +1,5 @@
 #!/bin/bash
-version="0.04"
+version="0.055"
 #
 # pflint
 #
@@ -24,7 +24,7 @@ cat $0 | grep '^## ' | sed -e 's/##//'
 ## - finagrade.sh adalias      - Adds flint custom alias file to user space.
 ## - finagrade.sh lentry       - fix gnome nautilus to use always-use-location-entry.
 ## - finagrade.sh bupdate      - update packages and backup package file.
-## - finagrade.sh setalias     - Sets up a git based development environment
+## - finagrade.sh pluma        - Sets pluma as default editor
 ## - finagrade.sh bu2usb       - Backup to USB
 ## - finagrade.sh bufrusb      - Backup from USB
 ## - finagrade.sh <date> <ext> - does something cool
@@ -58,7 +58,7 @@ mv  /home/flint/.config/gtk-3.0/bookmarks  /home/flint/.config/gtk-3.0/obe/$(dat
 ln -s  /home/flint/.gtk-bookmarks /home/flint/.config/gtk-3.0/bookmarks
 ls -alt /home/flint/.config/gtk-3.0/bookmarks
 spause
-} # Test: finagrade.sh dummy
+} # Test: finagrade.sh bookmarks
 #
 #
 function fxtpi(){
@@ -202,8 +202,7 @@ grep $choice /tmp/usbs |cut -f 2 |tee /tmp/choice
 rm -rf /tmp/mounted 2> /dev/null
 grep $choice /tmp/usbs |cut -f 3 |tee /tmp/mounted
 #D > /dev/null
- #
-#D echo "start cats"
+ #D echo "start cats"
 #D read
 #
 #D echo "start cat /tmp/mounted"
@@ -235,7 +234,7 @@ chmod +x /tmp/doit
 cat /tmp/doit
 # navigate to usb drive
 # run this:rsync -avr /home .
-} # Test: bufrusb.sh dummy
+} # Test: bufrusb.sh doit
 #
 #
 function bu2usb(){
@@ -253,6 +252,24 @@ uroot
 #  cd /usr/bin
 #  mv gedit gedit.org
 #  ln -s pluma gedit
+#
+function pluma(){
+#* function pluma - make pluma default gui editor
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+uroot
+echo "which files:"
+which gedit
+which pluma
+ # symlink pluma to gedit
+ cd /usr/bin
+ mv gedit gedit.org
+ ln -s pluma gedit
+
+} # Test: finagrade.sh pluma
+#
+
+
+
 #
 #  install bookmarks and relink for nautilus
 #  scp flint@trantor.local:./.gtk-bookmarks ~/.\
@@ -434,6 +451,7 @@ if [ "$#" -eq "2" ] && [ "$1" = "flink"       ]; then ARGS="2"; fi
 if [ "$#" -eq "2" ] && [ "$1" = "flunk"       ]; then ARGS="2"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "bupdate"     ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "bu2usb"      ]; then ARGS="1"; fi
+if [ "$#" -eq "1" ] && [ "$1" = "pluma"       ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "bufrusb"     ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "setalias"    ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "bookmarks"   ]; then ARGS="1"; fi

@@ -1,0 +1,1 @@
+/home/flint/git/bin/flig.sh

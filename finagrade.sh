@@ -1,5 +1,5 @@
 #!/bin/bash
-version="0.055"
+version="0.056"
 #
 # pflint
 #
@@ -241,7 +241,7 @@ function bu2usb(){
 #* function bu2usb - backs up home directory to usb
 echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 uroot
-} # Test: finagrade.sh dummy
+} # Test:pluma finagrade.sh dummy
 #
 # backup home to usb drive
 # navigate to usb drive

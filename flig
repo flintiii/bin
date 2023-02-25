@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+version="0.0035"
+#
+var2=$1
+#
+#
+function dummy(){
+#* function dummy - Rename and fill stuff in between braces
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+# uroot
+} # Test: tsg.sh dummy
+#
+
+# gh repo list
+# git clone https://github.com/flintiii/bin.git
+# check argument
+# chkarg
+#
+function flig(){
+#* function flig   - Resets your directory to head of the line. 
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+echo "argument = "$var2
+echo $var2
+exit
+rm -rf /tmp/$var2
+spause
+cd ~
+mv $HOME/$var2 /tmp
+spause
+rm -rf $var2
+git clone https://github.com/flintiii/bin.git ~/$var2
+spause
+cp /tmp/$var2/* ~/$var2/.
+rm -rf tmp/$var2
+echo "All done"
+#
+} # Test: flig.sh <directory>
+#
+#
+#* function spause   - A simple tarry...
+function spause(){
+   # -t sets time
+   # read -t $pt -p "$*" ans
+   read -p "Hit enter to continue..." ans
+   echo $ans
+}
+##* function chkarg   - checks argument for path...
+
+
+function chkarg(){
+#* function chkarg   - checks argument for path...
+STR='/'
+echo "Search Object: "$STR
+#
+# echo $var2 |rev |cut -d'/' -f 1 |rev
+echo $var2 |rev |cut -d $STR -f 1 |rev
+echo "Target Object: "$var2
+echo -n "stripped targer: "
+echo $var2 |rev |cut -d $STR -f 1 |rev
+basename $var2
+spause
+if [[ "$STR" == *"$var2"* ]]; then
+  echo "It's there."
+fi
+
+#
+echo "path must be off user root"
+echo "running flig on "$1 
+
+
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+uroot
+} # Test: finagrade.sh chkarg
+
+# dummy
+chkarg
+spause 
+grep '^\#\*' $0

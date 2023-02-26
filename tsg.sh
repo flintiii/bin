@@ -1,5 +1,5 @@
 #!/bin/bash
-version="0.001"
+version="0.01"
 #
 # pflint
 # Fri 24 Feb 2023 02:58:35 PM EST 
@@ -44,6 +44,14 @@ uroot
 } # Test: tsg.sh dummy
 #
 #
+function hubtst(){
+#* function hubtst - Tests connection to GitHub.com
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+# uroot
+gh repo list
+} # Test: tsg.sh hubtst
+#
+#
 function flit(){
 #* function flit - moves directory and download directory from git
 echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
@@ -68,6 +76,10 @@ uroot
 # git remote add origin git@github.com:flintiii/TenStatementGit.git
 # git branch -M main
 # git push -u origin main
+apt-get update;
+apt-get install python3 \
+python3-pyqt5 \
+python3-pyqt5.qtwebengine
 
 # Na... Not yet, start with a clone...
 echo "# TenStatementGit starts 2023-02-14" >> README.md
@@ -110,7 +122,11 @@ function wierd(){
 # which must end in sh executable and then
 # then the function adds two symlinks to the first element
 # of the $PATH variable linking the argument and the argument suffixed with "sh"
-# both linked to the second script element (hopefully /usr/local/bin).
+# both linkeapt-get update;
+apt-get install python3 \
+python3-pyqt5 \
+python3-pyqt5.qtwebengine
+d to the second script element (hopefully /usr/local/bin).
 # echo  "into root"
 # sudo bash
 # echo  "outa root"
@@ -285,6 +301,7 @@ if [ "$#" -eq "1" ] && [ "$1" = "spause"    ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "sane"      ]; then ARGS="1"; fi 
 if [ "$#" -eq "1" ] && [ "$1" = "flink"     ]; then ARGS="1"; fi 
 if [ "$#" -eq "1" ] && [ "$1" = "flunk"     ]; then ARGS="1"; fi 
+if [ "$#" -eq "1" ] && [ "$1" = "hubtst"    ]; then ARGS="1"; fi 
 if [ "$#" -eq "1" ] && [ "$1" = "help"      ]; then ARGS="9"; fi
 # if [ "it clone https://github.com/flintiii/bin.git ~/.$#" -eq "1" ] && [ "$1" = "flit"        ]; then ARGS="1"; fi
 # this tests the evaluator...

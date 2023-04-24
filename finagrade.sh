@@ -1,5 +1,5 @@
 #!/bin/bash
-version="0.056"
+version="0.057"
 #
 # pflint
 #

@@ -350,6 +350,7 @@ function spause(){
 }
 #
 function sane(){
+#* function sane - check location of vital files and programs, sanity check
 echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 rm -rf need > /dev/null
 for prog in openssh-server gparted nautilus pluma git snmp gedit sudo vim most less wget

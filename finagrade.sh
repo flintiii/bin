@@ -1,5 +1,5 @@
 #!/bin/bash
-version="0.057"
+version="0.0620"
 #
 # pflint
 #
@@ -22,13 +22,12 @@ cat $0 | grep '^## ' | sed -e 's/##//'
 ## - finagrade.sh flink        - Patches to current user path.
 ## - finagrade.sh flunk        - Removes from current user path.
 ## - finagrade.sh adalias      - Adds flint custom alias file to user space.
-## - finagrade.sh lentry       - fix gnome nautilus to use always-use-location-entry.
+## - finagrade.sh lentry       - fix gnome nautilus always-use-location-entry.
 ## - finagrade.sh bupdate      - update packages and backup package file.
 ## - finagrade.sh pluma        - Sets pluma as default editor
 ## - finagrade.sh bu2usb       - Backup to USB
 ## - finagrade.sh bufrusb      - Backup from USB
-## - finagrade.sh <date> <ext> - does something cool
-## 		Where <date> = yyy/mm/dd
+## - finagrade.sh toftpad      - turns off touchpad (tba)
 ## - finagrade.sh gupdate      - updates your git repository.
 ## - finagrade.sh bookmarks    - Points bookmarks & fix keys for nautilus.
 ## - finagrade.sh dsply <file[doc,txt,pdf]> displays these three types
@@ -46,6 +45,25 @@ echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 uroot
 } # Test: finagrade.sh dummy
 #
+#
+function toftpad(){
+#* function toftpad - Turn off touchpad
+echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
+uroot
+# xinput | grep -i touch
+echo " "
+echo "Turn off this Touchpad?"
+xinput | grep -i touchpad |tr -s " " |cut -d " " -f 3-
+dsabl=$(xinput | grep -i touchpad |tr -s " " |cut -d " " -f 6 |tr -d " \t"|cut -d "="  -f2 |cut -d "[" -f 1)
+pntr=$(xinput | grep -i touchpad |tr -s " " |strings |cut -d " " -f2)  
+echo "This is hooked to the touchpad pointer: "$pntr
+xinput | grep -i $pntr
+echo "Be prepared to disable \"id\"s related to pointer..."
+echo "xinput disable "$dsabl
+echo "Cntrl<C> to stop"
+spause 
+# xinput disable 
+} # Test: finagrade.sh toftpad
 #
 function bookmarks(){
 #* function bookmarks - install bookmarks and relink for nautilus
@@ -67,7 +85,7 @@ echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 uroot
 #
 # fix touchpad
-# tpi.sh
+# tpi.shlentry
 # install touchpad control
 sudo add-apt-repository ppa:atareao/atareao
 sudo apt-get update
@@ -101,7 +119,7 @@ chmod +x bash_aliases.sh
 echo "remember!  Type the following:"
 echo ". ./bash_aliases.sh"
 echo "That's all folks!"
-} # Test: finagrade.sh dummy
+} # Test: finagrade.sh adalias
 #
 #
 function bupdate(){
@@ -332,10 +350,9 @@ function spause(){
 }
 #
 function sane(){
-#* function sane - check location of vital files and programs, sanity check
 echo "This is the \""$FUNCNAME"\" function in "$0" version "$version #debug
 rm -rf need > /dev/null
-for prog in openssh-server gparted nautilus pluma git snmp gedit sudo vim most "less" "wget"
+for prog in openssh-server gparted nautilus pluma git snmp gedit sudo vim most less wget
 #d ;do echo $prog; done
 #D banana # programs you need put here
 do
@@ -343,7 +360,7 @@ do
 	# Better SOURCE:https://www.cyberciti.biz/faq/find-out-if-package-is-installed-in-linux/
 	answer=$(echo $(dpkg-query -W -f='${Status} ${Version}\n' $prog)| cut -d " " -f 3)
 	# echo $answer
-	if [ "$answer" != "installed" ];
+	if [ "$answer" != "installed" ]
 	then
 	    echo $prog >> need
 	    #debug echo "Type \"sudo apt-get install $prog\" to fix this."
@@ -444,8 +461,9 @@ sudo rm /usr/local/sbin/$FNAME
 #D echo $#"     "$1"    "$2"    "$3"    "$ARGS ;spause
 if [ "$#" -eq "1" ] && [ "$1" = "adalias"     ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "lentry"      ]; then ARGS="1"; fi
-if [ "$#" -eq "1" ] && [ "$1" = "fxtpi"      ]; then ARGS="1"; fi
+if [ "$#" -eq "1" ] && [ "$1" = "fxtpi"       ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "ibonjour"    ]; then ARGS="1"; fi
+if [ "$#" -eq "1" ] && [ "$1" = "toftpad"     ]; then ARGS="1"; fi
 if [ "$#" -eq "1" ] && [ "$1" = "update"      ]; then ARGS="1"; fi
 if [ "$#" -eq "2" ] && [ "$1" = "flink"       ]; then ARGS="2"; fi
 if [ "$#" -eq "2" ] && [ "$1" = "flunk"       ]; then ARGS="2"; fi
